@@ -5,7 +5,8 @@
 <script>
 export default {
   props: {
-    name: String
+    name: String,
+    orientation: String
   },
   data: function () {
     return {

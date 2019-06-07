@@ -16,7 +16,11 @@
             </div>
           </div>
           <div class="column">
-            <button class="button is-success">Iniciar combate!</button>
+            <button
+              class="button is-success"
+              @click="loadPlayerPokemon(selected_pokemon)"
+              v-bind:disabled="!has_selected_pokemon"
+            >Iniciar combate!</button>
           </div>
         </div>
       </div>
@@ -30,6 +34,8 @@
 
 <script>
 import pokemon from "../components/Pokemon"
+import { mapActions } from 'vuex'
+
 export default {
   components: {
     pokemon
@@ -38,8 +44,18 @@ export default {
     return {
       selected_pokemon: ''
     }
+  },
+  methods: {
+    ...mapActions(['loadPlayerPokemon']),
+    hi: (a) => {
+      console.log("HOLA! " + a)
+    }
+  },
+  computed: {
+    has_selected_pokemon: function () {
+      return this.selected_pokemon === '' ? false : true
+    }
   }
-
 
 }
 </script>
