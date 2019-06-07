@@ -1,18 +1,55 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div id="battle_setup" class="card">
+      <div class="card-content">
+        <div class="subtitle">Selecciona con que pokemon quieres jugar</div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="select">
+              <select v-model="selected_pokemon">
+                <option value selected disabled>Selecciona</option>
+                <option value="charmander">Charmander</option>
+                <option value="bulbasaur">Bulbasaur</option>
+                <option value="squirtle">Squirtle</option>
+              </select>
+            </div>
+          </div>
+          <div class="column">
+            <button class="button is-success">Iniciar combate!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="battle_container">
+      Pokemon elegido: "{{selected_pokemon}}"
+      <pokemon :name="selected_pokemon"/>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import pokemon from "../components/Pokemon"
 export default {
-  name: 'home',
   components: {
-    HelloWorld
+    pokemon
+  },
+  data: function () {
+    return {
+      selected_pokemon: ''
+    }
   }
+
+
 }
 </script>
+
+
+<style>
+#battle_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+</style>
