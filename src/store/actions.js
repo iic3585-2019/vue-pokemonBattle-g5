@@ -49,7 +49,8 @@ const actions = {
         commit('SET_PLAYER_POKEMON', player_pokemon)
     },
 
-    async loadPlayerPokemon({ commit }, pokemon_name) {
+    async loadPokemon({ commit }, { pokemon_name, target }) {
+        console.log("El target es:", target)
 
         // Se manda a pedir la info del pokemon
         const response = await axios.get(POKE_API_URL + `pokemon/${pokemon_name}/`)
@@ -76,16 +77,28 @@ const actions = {
             return { description, name, pp }
         })
 
-        const player_pokemon = {
-            name: _.capitalize(pokemon_name),
-            hp: 100, // TODO: Ver que vida se le va a poner
-            attacks: pokemon_attacks,
-            front_sprite: response.data.sprites['back_default']
+        if (target === "player") {
+            const player_pokemon = {
+                name: _.capitalize(pokemon_name),
+                hp: 100, // TODO: Ver que vida se le va a poner
+                attacks: pokemon_attacks,
+                back_sprite: response.data.sprites['back_default']
+            }
+
+            commit('SET_PLAYER_POKEMON', player_pokemon)
+        }
+        else {
+            const enemy_pokemon = {
+                name: _.capitalize(pokemon_name),
+                hp: 100, // TODO: Ver que vida se le va a poner
+                attacks: pokemon_attacks,
+                front_sprite: response.data.sprites['front_default']
+            }
+
+            commit('SET_ENEMY_POKEMON', enemy_pokemon)
         }
 
-        commit('SET_PLAYER_POKEMON', player_pokemon)
     }
-
 }
 
 export default actions
