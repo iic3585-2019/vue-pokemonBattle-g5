@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- OPCIONES DE ARRIBA -->
     <div id="battle_setup" class="card">
       <div class="card-content">
         <div class="subtitle">Selecciona con que pokemon quieres jugar</div>
@@ -25,9 +26,20 @@
         </div>
       </div>
     </div>
+
+    <!-- CUADRO DE LA PARTIDA -->
     <div id="battle_container">
-      Pokemon elegido: "{{selected_pokemon}}"
-      <pokemon :name="selected_pokemon"/>
+      <div class="columns is-mobile" v-if="has_pressed_start">
+        <div class="column is-6-desktop is-offset-3-desktop">
+          <pokemon orientation="front"/>
+        </div>
+      </div>
+
+      <div class="columns is-mobile" v-if="has_pressed_start">
+        <div class="column is-6-desktop is-offset-3-desktop">
+          <pokemon orientation="back"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +56,8 @@ export default {
   data: function () {
     return {
       selected_pokemon: '',
-      enemy_pokemon: _.sample(['charmander', 'bulbasaur', 'squirtle'])
+      enemy_pokemon: _.sample(['charmander', 'bulbasaur', 'squirtle']),
+      has_pressed_start: false
     }
   },
   methods: {
@@ -52,6 +65,7 @@ export default {
     handleClick() {
       this.loadPokemon({ pokemon_name: this.selected_pokemon, target: 'player' })
       this.loadPokemon({ pokemon_name: this.enemy_pokemon, target: 'enemy' })
+      this.has_pressed_start = true
     }
   },
   computed: {
@@ -63,12 +77,16 @@ export default {
 }
 </script>
 
-
-<style>
+<style lang="scss">
 #battle_container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80vh;
+  flex-direction: column;
+
+  .columns {
+    width: 100%;
+  }
 }
 </style>

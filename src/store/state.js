@@ -3,13 +3,13 @@ const state = {
     hp: 0,
     name: "",
     attacks: [],
-    back_sprite: ""
+    sprite: ""
   },
   enemy_pokemon: {
     hp: 0,
     name: "",
     attacks: [],
-    front_sprite: "",
+    sprite: "",
   }
 }
 

@@ -82,7 +82,7 @@ const actions = {
                 name: _.capitalize(pokemon_name),
                 hp: 100, // TODO: Ver que vida se le va a poner
                 attacks: pokemon_attacks,
-                back_sprite: response.data.sprites['back_default']
+                sprite: response.data.sprites['back_default']
             }
 
             commit('SET_PLAYER_POKEMON', player_pokemon)
@@ -92,7 +92,7 @@ const actions = {
                 name: _.capitalize(pokemon_name),
                 hp: 100, // TODO: Ver que vida se le va a poner
                 attacks: pokemon_attacks,
-                front_sprite: response.data.sprites['front_default']
+                sprite: response.data.sprites['front_default']
             }
 
             commit('SET_ENEMY_POKEMON', enemy_pokemon)
