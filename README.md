@@ -1,29 +1,22 @@
-# pokemon
+# Tarea 7: Vue, "Batalla pokémon"
 
-## Project setup
-```
-npm install
-```
+## Integrantes
+- Francisco Olivares
+- Gabriel Valenzuela
 
-### Compiles and hot-reloads for development
+## Instrucciones para correr el código:
+1. Instalar dependencias
 ```
-npm run serve
+    npm install
 ```
-
-### Compiles and minifies for production
+2. Servir el código con el comando (estará en el `localhost:8080`)
 ```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
+    npm run serve
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## El problema
+Crear una pequeña aplicación con vue + vuex la cual fuera un ejemplo de como manejar el estado de la app mediante la store de vuex. Además se debe hacer uso de alguna API externa para la app a generar
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## La aplicación: Batalla Pokémon
+Es una aplicación sencilla que primero le pide al usuario seleccionar con que pokémon quiere jugar y después aleatoriamente se selecciona el pokemon enemigo. Después se muestra la clásica pantalla de combate (intentando replicar la clásica de los juegos), una vez en esta pantalla el jugador puede seleccionar alguno de los cuatros ataques disponibles para su pokémon y se desarrolla una batalla por turno. El juego termina cuando alguno de los pokémon en juego (jugador o enemigo) pierde toda su hp.
+
