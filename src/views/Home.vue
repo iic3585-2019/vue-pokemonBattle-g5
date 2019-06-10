@@ -50,6 +50,7 @@
         </header>
         <footer class="modal-card-foot">
           <button class="button is-success"
+          @click="restart"
           >Jugar Nuevamente!</button>
         </footer>
       </div>
@@ -80,6 +81,9 @@ export default {
       this.loadPokemon({ pokemon_name: this.selected_pokemon, target: 'player' })
       this.loadPokemon({ pokemon_name: this.enemy_pokemon, target: 'enemy' })
       this.has_pressed_start = true
+    },
+    restart: function () {
+      window.location.reload(true)
     }
   },
   computed: {
