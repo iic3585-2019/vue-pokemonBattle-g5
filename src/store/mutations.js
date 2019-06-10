@@ -5,7 +5,8 @@ const mutations = {
 
     SET_ENEMY_POKEMON(state, payload) {
         state.enemy_pokemon = payload
-    }
+    },
+
 }
 
 export default mutations

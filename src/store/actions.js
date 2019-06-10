@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const POKE_API_URL = "https://pokeapi.co/api/v2/"
 import _ from 'lodash'
+import { isNull } from 'util';
 
 const actions = {
   loadPlayerPokemon_old({ commit }, pokemon_name) {
@@ -73,19 +74,33 @@ const actions = {
       let description = _.find(attack.data['flavor_text_entries'], (x) => { return x.language.name === "es" })["flavor_text"]
       let name = _.find(attack.data['names'], (x) => { return x.language.name === "es" })["name"]
       let pp = attack.data['pp']
-      // TODO: Ver que daño se le va a poner...
-      return { description, name, pp }
+      let power = attack.data['power'] === null ? 10 : attack.data['power'] 
+      return { description, name, pp, power }
     })
+
+    // Se calcula la vida del pokemon entre 100 y 150
+    let hp = Math.round(Math.random()*(50)+parseInt(100))
 
     /* Se procede a mandar a guardar el nuevo pokemon */
     const pokemon_to_set = {
       name: _.capitalize(pokemon_name),
-      hp: 100, // TODO: Ver que vida se le va a poner
+      max_hp: hp,
+      current_hp: hp,
       attacks: pokemon_attacks,
       sprite: target === "player" ? response.data.sprites['back_default'] : response.data.sprites['front_default']
     }
 
     const ACTION_NAME = target === "player" ? 'SET_PLAYER_POKEMON' : 'SET_ENEMY_POKEMON'
+    commit(ACTION_NAME, pokemon_to_set)
+  },
+
+  makeAttack({ commit }, {origin, target, attack}) {
+    let {current_hp} = target
+    let pokemon_to_set = {
+      ...target,
+      current_hp: current_hp - attack.power
+    }
+    let ACTION_NAME = origin === "enemy" ? 'SET_PLAYER_POKEMON' : 'SET_ENEMY_POKEMON'
     commit(ACTION_NAME, pokemon_to_set)
   }
 }

@@ -10,7 +10,7 @@
           <div class="columns is-marginless is-mobile">
             <div class="column is-narrow">HP:</div>
             <div class="column is-flex" style="align-items: center;">
-              <progress class="progress is-success" v-bind:value="pokemon.hp" max="100"></progress>
+              <progress class="progress is-success" v-bind:value="pokemon.current_hp" v-bind:max="pokemon.max_hp"></progress>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="columns is-marginless is-mobile">
             <div class="column is-narrow">HP:</div>
             <div class="column is-flex" style="align-items: center;">
-              <progress class="progress is-success" v-bind:value="pokemon.hp" max="100"></progress>
+              <progress class="progress is-success" v-bind:value="pokemon.current_hp" v-bind:max="pokemon.max_hp"></progress>
             </div>
           </div>
         </div>
@@ -52,8 +52,10 @@
           <img v-bind:src="pokemon.sprite" alt>
         </div>
       </div>
-
       <div class="column"></div>
+    </div>
+    <div v-if="pokemon.name !== '' && isPlayer">
+      <movements/>
     </div>
   </div>
 </template>
@@ -61,8 +63,13 @@
 <script>
 
 import { mapState } from 'vuex'
+import movements from "./Movements"
 
 export default {
+  components: {
+    movements
+  },
+
   props: {
     orientation: String
   },

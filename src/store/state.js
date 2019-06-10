@@ -1,12 +1,14 @@
 const state = {
   player_pokemon: {
-    hp: 0,
+    max_hp: 0,
+    current_hp: 0,
     name: "",
     attacks: [],
     sprite: ""
   },
   enemy_pokemon: {
-    hp: 0,
+    max_hp: 0,
+    current_hp: 0,
     name: "",
     attacks: [],
     sprite: "",

@@ -41,17 +41,31 @@
         </div>
       </div>
     </div>
+    <div class="modal is-clipped" v-bind:class="[{'is-active':wins}]">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title" v-if="playerWins">Has ganado!</p>
+          <p class="modal-card-title" v-else-if="enemyWins">Has perdido :c</p>
+        </header>
+        <footer class="modal-card-foot">
+          <button class="button is-success"
+          >Jugar Nuevamente!</button>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import pokemon from "../components/Pokemon"
 import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import _ from 'lodash'
 
 export default {
   components: {
-    pokemon
+    pokemon,
   },
   data: function () {
     return {
@@ -61,7 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['loadPokemon']),
+    ...mapActions(['loadPokemon','reset']),
     handleClick() {
       this.loadPokemon({ pokemon_name: this.selected_pokemon, target: 'player' })
       this.loadPokemon({ pokemon_name: this.enemy_pokemon, target: 'enemy' })
@@ -71,6 +85,28 @@ export default {
   computed: {
     has_selected_pokemon: function () {
       return this.selected_pokemon === '' ? false : true
+    },
+    ...mapState({
+      pokemon(state) {
+        // Se retorna el pokemon del jugador
+        return state.player_pokemon
+      },
+      enemy(state) {
+        // Se retorna el pokemon del jugador
+        return state.enemy_pokemon
+      }
+    }),
+
+    playerWins: function(){
+      return this.enemy.current_hp <= 0 && this.enemy.name!="" ? true : false
+    },
+
+    enemyWins: function(){
+      return this.pokemon.current_hp <= 0 && this.enemy.name!="" ? true : false
+    },
+
+    wins: function(){
+      return this.has_pressed_start && (this.enemyWins || this.playerWins) ? true : false
     }
   }
 
