@@ -73,11 +73,6 @@ export default {
   props: {
     orientation: String
   },
-  data: function () {
-    return {
-      hola: "hola!!!"
-    }
-  },
   computed: {
     ...mapState({
       pokemon(state) {
